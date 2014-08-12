@@ -2,25 +2,21 @@ package com.ism;
 
 
 import com.ism.concurrent.SingleThread;
+import com.ism.core.model.BandwidthMonitor;
 import com.ism.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Runner {
     private static final Logger LOGGER = LoggerFactory.getLogger(Runner.class);
-    private static final Integer MAX_READ_BYTES = 1024;
 
     public static void main(String[] args) {
-        Runner runner = new Runner();
+        BandwidthMonitor monitor = BandwidthMonitor.getInstance();
 
-        ThrottledInputStream throttledInputStream = new ThrottledInputStream(runner.getClass().getResourceAsStream("/test.txt"), MAX_READ_BYTES);
-
-        LOGGER.info("---GO---");
-
-        new Thread(new SingleThread(throttledInputStream)).start();
-        new Thread(new SingleThread(throttledInputStream)).start();
-        new Thread(new SingleThread(throttledInputStream)).start();
-        new Thread(new SingleThread(throttledInputStream)).start();
-        new Thread(new SingleThread(throttledInputStream)).start();
+        new Thread(new SingleThread(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt"), monitor.getAvgBandwidth()))).start();
+        new Thread(new SingleThread(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt"), monitor.getAvgBandwidth()))).start();
+        new Thread(new SingleThread(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt"), monitor.getAvgBandwidth()))).start();
+        new Thread(new SingleThread(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt"), monitor.getAvgBandwidth()))).start();
+        new Thread(new SingleThread(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt"), monitor.getAvgBandwidth()))).start();
     }
 }
