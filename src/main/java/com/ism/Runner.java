@@ -17,10 +17,10 @@ public class Runner {
 
         LOGGER.info("---GO---");
 
-        new Thread(new SingleThread(throttledInputStream, 1)).start();
-        new Thread(new SingleThread(throttledInputStream, 2)).start();
-        new Thread(new SingleThread(throttledInputStream, 3)).start();
-        new Thread(new SingleThread(throttledInputStream, 4)).start();
-        new Thread(new SingleThread(throttledInputStream, 5)).start();
+        new Thread(new SingleThread(throttledInputStream)).start();
+        new Thread(new SingleThread(throttledInputStream)).start();
+        new Thread(new SingleThread(throttledInputStream)).start();
+        new Thread(new SingleThread(throttledInputStream)).start();
+        new Thread(new SingleThread(throttledInputStream)).start();
     }
 }

@@ -10,25 +10,19 @@ public class SingleThread implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(SingleThread.class);
 
     private ThrottledInputStream is;
-    private Integer id;
 
-    public SingleThread(ThrottledInputStream is, Integer id) {
+    public SingleThread(ThrottledInputStream is) {
         this.is = is;
-        this.id = id;
     }
 
     @Override
     public void run() {
         try {
             while (is.read() != -1) {
-                LOGGER.info("Thread #" + id + "  " + is.toString());
+                LOGGER.info(is.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public Integer getId() {
-        return id;
     }
 }
