@@ -9,7 +9,7 @@ import java.util.List;
 public class BandwidthUtil {
 
     // TODO add parser!!!
-    public static List<Bandwidth> parsePeriod() {
+    public static List<Bandwidth> parsePeriod(String str) {
         List<Bandwidth> list = new ArrayList<>();
 
         Bandwidth bandwidth = new Bandwidth();
