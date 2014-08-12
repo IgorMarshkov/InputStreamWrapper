@@ -1,6 +1,6 @@
-package com.ism.concurrent;
+package com.ism.core.concurrent;
 
-import com.ism.stream.ThrottledInputStream;
+import com.ism.core.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
