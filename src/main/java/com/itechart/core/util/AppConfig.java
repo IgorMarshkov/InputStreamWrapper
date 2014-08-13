@@ -11,6 +11,7 @@ public class AppConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
 
     private static final String BANDWIDTH_PERIODS = "bandwidth.periods";
+    private static final String BANDWIDTH_DOWN_STEP = "bandwidth.down.step";
     private static final String CLIENT_MAX_COUNT = "client.max.count";
 
     private static AppConfig instance = null;
@@ -41,6 +42,11 @@ public class AppConfig {
 
     public String getBandwidthPeriods() {
         return props.getProperty(BANDWIDTH_PERIODS, "");
+    }
+
+    public int getBandwidthDownStep() {
+        String value = props.getProperty(BANDWIDTH_DOWN_STEP, "10");
+        return Integer.parseInt(value);
     }
 
     public int getClientMaxCount() {

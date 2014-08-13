@@ -36,4 +36,8 @@ public class ClientManager implements Client {
         }
         return false;
     }
+
+    public List<SingleThread> getClients() {
+        return clients;
+    }
 }
