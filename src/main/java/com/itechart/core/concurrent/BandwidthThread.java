@@ -38,24 +38,20 @@ public class BandwidthThread extends Thread {
                 Thread.sleep(periodWo5percent);
 
                 // transitioning between time periods should work seamlessly
-                int step = AppConfig.getInstance().getBandwidthDownStep();
-                long tail = period - periodWo5percent;
-                while ((tail -= step) > 0) {
-                    Bandwidth bandwidthDown = item;
-                    int bandwidthDownVal = (int) (bandwidthDown.getBandwidth() - (item.getBandwidth() * 0.1));
-                    bandwidthDown.setBandwidth(bandwidthDownVal);
-                    BandwidthManager.getInstance().setActiveBandwidth(bandwidthDown);
-                    Thread.sleep(step);
-                }
-
-                setupSleepTime(item);
+                setupBandwidthDown(item, period, periodWo5percent);
             }
         }
     }
 
-    private void setupSleepTime(Bandwidth item) throws InterruptedException {
-        long period = item.getToTime().getTime() - item.getFromTime().getTime();
-
-        Thread.sleep(period);
+    private void setupBandwidthDown(Bandwidth item, long period, long periodWo5percent) throws InterruptedException {
+        int step = AppConfig.getInstance().getBandwidthDownStep();
+        long tail = period - periodWo5percent;
+        while ((tail -= step) > 0) {
+            Bandwidth bandwidthDown = item;
+            int bandwidthDownVal = (int) (bandwidthDown.getBandwidth() - (item.getBandwidth() * 0.1));
+            bandwidthDown.setBandwidth(bandwidthDownVal);
+            BandwidthManager.getInstance().setActiveBandwidth(bandwidthDown);
+            Thread.sleep(step);
+        }
     }
 }
