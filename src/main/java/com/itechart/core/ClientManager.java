@@ -1,13 +1,14 @@
 package com.itechart.core;
 
-import com.itechart.core.concurrent.SingleThread;
+import com.itechart.core.concurrent.RunnableTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientManager implements Client {
     private static ClientManager instance = null;
 
-    private List<SingleThread> clients;
+    private List<RunnableTask> clients;
 
     private ClientManager() {
         this.clients = new ArrayList<>();
@@ -18,7 +19,7 @@ public class ClientManager implements Client {
     }
 
     @Override
-    public boolean add(SingleThread thread) {
+    public boolean add(RunnableTask thread) {
         boolean isAdd = clients.add(thread);
         if (isAdd) {
             BandwidthManager.getInstance().recalculateAvgBandwidth(clients.size());
@@ -28,7 +29,7 @@ public class ClientManager implements Client {
     }
 
     @Override
-    public boolean remove(SingleThread thread) {
+    public boolean remove(RunnableTask thread) {
         boolean isRemove = clients.remove(thread);
         if (isRemove) {
             BandwidthManager.getInstance().recalculateAvgBandwidth(clients.size());
@@ -37,7 +38,7 @@ public class ClientManager implements Client {
         return false;
     }
 
-    public List<SingleThread> getClients() {
+    public List<RunnableTask> getClients() {
         return clients;
     }
 }

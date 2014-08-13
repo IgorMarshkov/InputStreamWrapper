@@ -13,6 +13,7 @@ public class AppConfig {
     private static final String BANDWIDTH_PERIODS = "bandwidth.periods";
     private static final String BANDWIDTH_DOWN_STEP = "bandwidth.down.step";
     private static final String CLIENT_MAX_COUNT = "client.max.count";
+    private static final String CLIENT_GENERATOR_DELAY = "client.generator.delay";
 
     private static AppConfig instance = null;
 
@@ -51,6 +52,11 @@ public class AppConfig {
 
     public int getClientMaxCount() {
         String value = props.getProperty(CLIENT_MAX_COUNT, "1");
+        return Integer.parseInt(value);
+    }
+
+    public int getClientGeneratorDelay() {
+        String value = props.getProperty(CLIENT_GENERATOR_DELAY, "30");
         return Integer.parseInt(value);
     }
 }

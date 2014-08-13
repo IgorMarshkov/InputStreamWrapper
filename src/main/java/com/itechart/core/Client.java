@@ -1,8 +1,8 @@
 package com.itechart.core;
 
-import com.itechart.core.concurrent.SingleThread;
+import com.itechart.core.concurrent.RunnableTask;
 
 public interface Client {
-    boolean add(SingleThread thread);
-    boolean remove(SingleThread thread);
+    boolean add(RunnableTask thread);
+    boolean remove(RunnableTask thread);
 }

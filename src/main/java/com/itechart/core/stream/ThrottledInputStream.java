@@ -1,11 +1,12 @@
 package com.itechart.core.stream;
 
+import com.itechart.core.BandwidthManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 public class ThrottledInputStream extends InputStream {
-    private final InputStream rawStream;
-    private final double maxBytesPerSec;
+    private final InputStream inputStream;
     private final long startTime = System.currentTimeMillis();
 
     private long bytesRead = 0;
@@ -13,25 +14,20 @@ public class ThrottledInputStream extends InputStream {
 
     private static final long SLEEP_DURATION_MS = 50;
 
-    public ThrottledInputStream(InputStream rawStream) {
-        this(rawStream, Long.MAX_VALUE);
-    }
 
-    public ThrottledInputStream(InputStream rawStream, double maxBytesPerSec) {
-        assert maxBytesPerSec > 0 : "Bandwidth " + maxBytesPerSec + " is invalid";
-        this.rawStream = rawStream;
-        this.maxBytesPerSec = maxBytesPerSec;
+    public ThrottledInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 
     @Override
     public void close() throws IOException {
-        rawStream.close();
+        inputStream.close();
     }
 
     @Override
     public int read() throws IOException {
         throttle();
-        int data = rawStream.read();
+        int data = inputStream.read();
         if (data != -1) {
             bytesRead++;
         }
@@ -39,7 +35,7 @@ public class ThrottledInputStream extends InputStream {
     }
 
     private void throttle() throws IOException {
-        if (getBytesPerSec() > maxBytesPerSec) {
+        if (getBytesPerSec() > BandwidthManager.getInstance().getAvgBandwidth().longValue()) {
             try {
                 Thread.sleep(SLEEP_DURATION_MS);
                 totalSleepTime += SLEEP_DURATION_MS;
@@ -83,7 +79,7 @@ public class ThrottledInputStream extends InputStream {
     public String toString() {
         return "ThrottledInputStream{" +
                 "bytesRead=" + bytesRead +
-                ", maxBytesPerSec=" + maxBytesPerSec +
+                ", maxBytesPerSec=" + BandwidthManager.getInstance().getAvgBandwidth().longValue() +
                 ", bytesPerSec=" + getBytesPerSec() +
                 ", totalSleepTime=" + totalSleepTime +
                 '}';

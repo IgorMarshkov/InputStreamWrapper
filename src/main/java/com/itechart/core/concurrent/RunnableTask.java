@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class SingleThread implements Runnable {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SingleThread.class);
+public class RunnableTask implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RunnableTask.class);
 
     private ThrottledInputStream is;
 
-    public SingleThread(ThrottledInputStream is) {
+    public RunnableTask(ThrottledInputStream is) {
         this.is = is;
     }
 
@@ -21,8 +21,9 @@ public class SingleThread implements Runnable {
             while (is.read() != -1) {
                 LOGGER.info(is.toString());
             }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 }

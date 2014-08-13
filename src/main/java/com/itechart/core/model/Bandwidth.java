@@ -5,7 +5,7 @@ import java.util.Date;
 public class Bandwidth {
     private Date fromTime;
     private Date toTime;
-    private int bandwidth; // bytes/second
+    private double bandwidth; // bytes/second
 
     public Bandwidth() {
 
@@ -33,11 +33,11 @@ public class Bandwidth {
         this.toTime = toTime;
     }
 
-    public int getBandwidth() {
+    public double getBandwidth() {
         return bandwidth;
     }
 
-    public void setBandwidth(int bandwidth) {
+    public void setBandwidth(double bandwidth) {
         this.bandwidth = bandwidth;
     }
 }
