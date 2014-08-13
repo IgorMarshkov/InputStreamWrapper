@@ -1,4 +1,4 @@
-package com.ism.core.stream;
+package com.itechart.core.stream;
 
 import java.io.IOException;
 import java.io.InputStream;

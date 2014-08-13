@@ -1,4 +1,4 @@
-package com.ism.core.concurrent;
+package com.itechart.core.concurrent;
 
 public class BandwidthThread implements Runnable {
     @Override

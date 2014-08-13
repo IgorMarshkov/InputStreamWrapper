@@ -1,6 +1,6 @@
-package com.ism.core.util;
+package com.itechart.core.util;
 
-import com.ism.core.model.Bandwidth;
+import com.itechart.core.model.Bandwidth;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

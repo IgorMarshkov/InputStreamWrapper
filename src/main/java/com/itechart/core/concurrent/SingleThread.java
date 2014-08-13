@@ -1,6 +1,6 @@
-package com.ism.core.concurrent;
+package com.itechart.core.concurrent;
 
-import com.ism.core.stream.ThrottledInputStream;
+import com.itechart.core.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
-package com.ism.core;
+package com.itechart.core;
 
-import com.ism.core.concurrent.SingleThread;
+import com.itechart.core.concurrent.SingleThread;
 import java.util.ArrayList;
 import java.util.List;
 

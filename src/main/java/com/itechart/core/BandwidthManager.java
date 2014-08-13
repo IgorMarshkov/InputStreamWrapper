@@ -1,8 +1,8 @@
-package com.ism.core;
+package com.itechart.core;
 
-import com.ism.core.model.Bandwidth;
-import com.ism.core.util.AppConfig;
-import com.ism.core.util.BandwidthUtil;
+import com.itechart.core.model.Bandwidth;
+import com.itechart.core.util.AppConfig;
+import com.itechart.core.util.BandwidthUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

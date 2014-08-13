@@ -1,9 +1,9 @@
-package com.ism;
+package com.itechart;
 
 
-import com.ism.core.concurrent.SingleThread;
-import com.ism.core.BandwidthManager;
-import com.ism.core.stream.ThrottledInputStream;
+import com.itechart.core.concurrent.SingleThread;
+import com.itechart.core.BandwidthManager;
+import com.itechart.core.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

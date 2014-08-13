@@ -1,6 +1,6 @@
-package com.ism.core;
+package com.itechart.core;
 
-import com.ism.core.concurrent.SingleThread;
+import com.itechart.core.concurrent.SingleThread;
 
 public interface Client {
     boolean add(SingleThread thread);

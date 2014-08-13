@@ -1,4 +1,4 @@
-package com.ism.core.model;
+package com.itechart.core.model;
 
 import java.util.Date;
 
