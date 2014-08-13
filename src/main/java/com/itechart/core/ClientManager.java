@@ -10,17 +10,13 @@ public class ClientManager implements Client {
     }
 
     @Override
-    public boolean add() {
-        clients++;
-        BandwidthManager.getInstance().recalculateAvgBandwidth(clients);
-        return true;
+    public void add() {
+        BandwidthManager.getInstance().recalculateAvgBandwidth(++clients);
     }
 
     @Override
-    public boolean remove() {
-        clients--;
-        BandwidthManager.getInstance().recalculateAvgBandwidth(clients);
-        return true;
+    public void remove() {
+        BandwidthManager.getInstance().recalculateAvgBandwidth(--clients);
     }
 
     public int getClients() {

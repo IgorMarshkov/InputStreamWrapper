@@ -19,8 +19,8 @@ public class ClientThread implements Runnable {
         int count = config.getClientMaxCount();
 
         while (count > 0) {
-            new RunnableTask(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt")));
             manager.add();
+            new Thread(new RunnableTask(new ThrottledInputStream(monitor.getClass().getResourceAsStream("/test.txt")))).start();
             count--;
             try {
                 Thread.sleep(config.getClientGeneratorDelay() * 1000);
