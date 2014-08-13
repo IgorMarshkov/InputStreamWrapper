@@ -15,12 +15,12 @@ public class AppConfig {
     private static final String CLIENT_MAX_COUNT = "client.max.count";
     private static final String CLIENT_GENERATOR_DELAY = "client.generator.delay";
 
-    private static AppConfig instance = null;
+    private static AppConfig instance = new AppConfig();
 
     private Properties props;
 
-    public synchronized static AppConfig getInstance() {
-        return instance == null ? new AppConfig() : instance;
+    public static AppConfig getInstance() {
+        return instance;
     }
 
     private AppConfig() {

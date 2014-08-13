@@ -1,12 +1,10 @@
 package com.itechart.core;
 
 public class ClientManager implements Client {
-    private static ClientManager instance = null;
-
+    private static ClientManager instance = new ClientManager();
     private int clients;
-
-    public synchronized static ClientManager getInstance() {
-        return instance == null ? new ClientManager() : instance;
+    public static ClientManager getInstance() {
+        return instance;
     }
 
     @Override

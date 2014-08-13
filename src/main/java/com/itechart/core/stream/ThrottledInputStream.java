@@ -1,6 +1,7 @@
 package com.itechart.core.stream;
 
 import com.itechart.core.BandwidthManager;
+import com.itechart.core.ClientManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,6 +83,6 @@ public class ThrottledInputStream extends InputStream {
                 ", maxBytesPerSec=" + BandwidthManager.getInstance().getAvgBandwidth().longValue() +
                 ", bytesPerSec=" + getBytesPerSec() +
                 ", totalSleepTime=" + totalSleepTime +
-                '}';
+                '}' + "clients: " + ClientManager.getInstance().getClients();
     }
 }

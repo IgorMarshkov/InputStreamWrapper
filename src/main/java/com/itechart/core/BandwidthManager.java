@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class BandwidthManager {
-    private static BandwidthManager instance = null;
+    private static BandwidthManager instance = new BandwidthManager();
 
     private List<Bandwidth> bandwidths;
     private Bandwidth activeBandwidth;
@@ -25,8 +25,8 @@ public class BandwidthManager {
         new BandwidthThread(bandwidths).start();
     }
 
-    public synchronized static BandwidthManager getInstance() {
-        return instance == null ? new BandwidthManager() : instance;
+    public static BandwidthManager getInstance() {
+        return instance;
     }
 
     public void setActiveBandwidth(Bandwidth bandwidth) {
