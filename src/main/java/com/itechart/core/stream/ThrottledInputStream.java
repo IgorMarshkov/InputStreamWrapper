@@ -36,7 +36,7 @@ public class ThrottledInputStream extends InputStream {
     }
 
     private void throttle() throws IOException {
-        if (getBytesPerSec() > BandwidthManager.getInstance().getAvgBandwidth().longValue()) {
+        if (getBytesPerSec() > BandwidthManager.getInstance().getAvgBandwidth()) {
             try {
                 Thread.sleep(SLEEP_DURATION_MS);
                 totalSleepTime += SLEEP_DURATION_MS;
@@ -80,7 +80,7 @@ public class ThrottledInputStream extends InputStream {
     public String toString() {
         return "ThrottledInputStream{" +
                 "bytesRead=" + bytesRead +
-                ", maxBytesPerSec=" + BandwidthManager.getInstance().getAvgBandwidth().longValue() +
+                ", maxBytesPerSec=" + BandwidthManager.getInstance().getAvgBandwidth() +
                 ", bytesPerSec=" + getBytesPerSec() +
                 ", totalSleepTime=" + totalSleepTime +
                 '}' + "clients: " + ClientManager.getInstance().getClients();
