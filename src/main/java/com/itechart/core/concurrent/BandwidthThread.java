@@ -2,10 +2,10 @@ package com.itechart.core.concurrent;
 
 import com.itechart.core.BandwidthManager;
 import com.itechart.core.model.Bandwidth;
-import com.itechart.core.util.AppConfig;
+import org.joda.time.Interval;
+import org.joda.time.LocalTime;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.List;
 
 public class BandwidthThread extends Thread {
@@ -19,41 +19,40 @@ public class BandwidthThread extends Thread {
 
     @Override
     public void run() {
+        int index = 0;
         while (true) {
             try {
-                setupActiveBandwidth();
+                index = setupActiveBandwidth(index);
             } catch (InterruptedException e) {
                 LOGGER.error(e.getMessage());
             }
         }
     }
 
-    private void setupActiveBandwidth() throws InterruptedException {
-        Date currentTime = new Date();
-        for (Bandwidth item : bandwidths) {
-            if (currentTime.equals(item.getFromTime())
-                    || (currentTime.after(item.getFromTime()) && currentTime.before(item.getToTime()))) {
-                BandwidthManager.getInstance().setActiveBandwidth(item);
-
-                long period = item.getToTime().getTime() - item.getFromTime().getTime();
-                long periodWo5percent = (long) (period * 0.95); // We get period without 5%
-                Thread.sleep(periodWo5percent);
-
-                // transitioning between time periods should work seamlessly
-                setupBandwidthDown(item, period, periodWo5percent);
+    private int setupActiveBandwidth(int index) throws InterruptedException {
+        for (int i = 0; i < bandwidths.size(); i++) {
+            if (index > 0) {
+                index++;
+                Bandwidth bandwidth = bandwidths.get(index);
+                setupUpdatedBandwidth(bandwidth);
+            } else {
+                Bandwidth bandwidth = bandwidths.get(i);
+                long from = bandwidth.getFromTime().toDateTimeToday().getMillis();
+                long to = bandwidth.getToTime().toDateTimeToday().getMillis();
+                Interval interval = new Interval(from, to);
+                LocalTime localTime = new LocalTime();
+                if (interval.contains(localTime.toDateTimeToday())) {
+                    index = i;
+                    setupUpdatedBandwidth(bandwidth);
+                }
             }
         }
+        return index;
     }
 
-    private void setupBandwidthDown(Bandwidth item, long period, long periodWo5percent) throws InterruptedException {
-        int step = AppConfig.getInstance().getBandwidthDownStep();
-        long tail = period - periodWo5percent;
-        while ((tail -= step) > 0) {
-            Bandwidth bandwidthDown = item;
-            int bandwidthDownVal = (int) (bandwidthDown.getBandwidth() - (item.getBandwidth() * 0.1));
-            bandwidthDown.setBandwidth(bandwidthDownVal);
-            BandwidthManager.getInstance().setActiveBandwidth(bandwidthDown);
-            Thread.sleep(step);
-        }
+    private void setupUpdatedBandwidth(Bandwidth item) throws InterruptedException {
+        BandwidthManager.getInstance().setActiveBandwidth(item);
+        long period = item.getToTime().toDateTimeToday().getMillis() - item.getFromTime().toDateTimeToday().getMillis();
+        Thread.sleep(period);
     }
 }

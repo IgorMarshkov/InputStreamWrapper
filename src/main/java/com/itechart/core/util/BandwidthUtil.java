@@ -23,11 +23,11 @@ public class BandwidthUtil {
             Bandwidth bandwidth = new Bandwidth();
             String fromTimeStr = periodStr.substring(0, timeSepInd);
             DateTime fromTime = dateTimeFormatter.parseDateTime(fromTimeStr);
-            bandwidth.setFromTime(fromTime.toDate());
+            bandwidth.setFromTime(fromTime.toLocalTime());
 
             String toTimeStr = periodStr.substring(timeSepInd + 1, bandwidthSepInd);
             DateTime toTime = dateTimeFormatter.parseDateTime(toTimeStr);
-            bandwidth.setToTime(toTime.toDate());
+            bandwidth.setToTime(toTime.toLocalTime());
 
             String bandwidthStr = periodStr.substring(bandwidthSepInd + 1);
             int bandwidthVal = StringUtils.isEmpty(bandwidthStr) ? Integer.MAX_VALUE : Integer.parseInt(bandwidthStr);

@@ -5,8 +5,6 @@ import com.itechart.core.model.Bandwidth;
 import com.itechart.core.util.AppConfig;
 import com.itechart.core.util.BandwidthUtil;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class BandwidthManager {
@@ -14,7 +12,7 @@ public class BandwidthManager {
 
     private List<Bandwidth> bandwidths;
     private Bandwidth activeBandwidth;
-    private BigDecimal avgBandwidth;
+    private double avgBandwidth;
 
     private BandwidthManager() {
         String bandwidthPeriods = AppConfig.getInstance().getBandwidthPeriods();
@@ -35,16 +33,14 @@ public class BandwidthManager {
     }
 
     public void recalculateAvgBandwidth(int countClients) {
-        BigDecimal activeBandwidthVal = new BigDecimal(activeBandwidth.getBandwidth());
         if (countClients == 0) {
-            this.avgBandwidth = activeBandwidthVal;
+            this.avgBandwidth = activeBandwidth.getBandwidth();
         } else {
-            BigDecimal count = new BigDecimal(countClients);
-            this.avgBandwidth = activeBandwidthVal.divide(count, 3, RoundingMode.CEILING);
+            this.avgBandwidth = activeBandwidth.getBandwidth() / countClients;
         }
     }
 
-    public BigDecimal getAvgBandwidth() {
+    public double getAvgBandwidth() {
         return avgBandwidth;
     }
 }
