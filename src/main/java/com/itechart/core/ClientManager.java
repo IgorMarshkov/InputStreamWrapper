@@ -1,44 +1,29 @@
 package com.itechart.core;
 
-import com.itechart.core.concurrent.RunnableTask;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClientManager implements Client {
     private static ClientManager instance = null;
 
-    private List<RunnableTask> clients;
-
-    private ClientManager() {
-        this.clients = new ArrayList<>();
-    }
+    private int clients;
 
     public synchronized static ClientManager getInstance() {
         return instance == null ? new ClientManager() : instance;
     }
 
     @Override
-    public boolean add(RunnableTask thread) {
-        boolean isAdd = clients.add(thread);
-        if (isAdd) {
-            BandwidthManager.getInstance().recalculateAvgBandwidth(clients.size());
-            return true;
-        }
-        return false;
+    public boolean add() {
+        clients++;
+        BandwidthManager.getInstance().recalculateAvgBandwidth(clients);
+        return true;
     }
 
     @Override
-    public boolean remove(RunnableTask thread) {
-        boolean isRemove = clients.remove(thread);
-        if (isRemove) {
-            BandwidthManager.getInstance().recalculateAvgBandwidth(clients.size());
-            return true;
-        }
-        return false;
+    public boolean remove() {
+        clients--;
+        BandwidthManager.getInstance().recalculateAvgBandwidth(clients);
+        return true;
     }
 
-    public List<RunnableTask> getClients() {
+    public int getClients() {
         return clients;
     }
 }

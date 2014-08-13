@@ -31,7 +31,7 @@ public class BandwidthManager {
 
     public void setActiveBandwidth(Bandwidth bandwidth) {
         this.activeBandwidth = bandwidth;
-        recalculateAvgBandwidth(ClientManager.getInstance().getClients().size());
+        recalculateAvgBandwidth(ClientManager.getInstance().getClients());
     }
 
     public void recalculateAvgBandwidth(int countClients) {
