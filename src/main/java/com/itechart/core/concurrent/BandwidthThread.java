@@ -3,11 +3,13 @@ package com.itechart.core.concurrent;
 import com.itechart.core.BandwidthManager;
 import com.itechart.core.model.Bandwidth;
 import com.itechart.core.util.AppConfig;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.List;
 
 public class BandwidthThread extends Thread {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BandwidthThread.class);
 
     private List<Bandwidth> bandwidths;
 
@@ -21,7 +23,7 @@ public class BandwidthThread extends Thread {
             try {
                 setupActiveBandwidth();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         }
     }
