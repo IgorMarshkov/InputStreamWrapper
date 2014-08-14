@@ -1,7 +1,6 @@
 package com.itechart.core.stream;
 
 import com.itechart.core.BandwidthManager;
-import com.itechart.core.ClientManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +10,6 @@ public class ThrottledInputStream extends InputStream {
     private final long startTime = System.currentTimeMillis();
 
     private long bytesRead = 0;
-    private long totalSleepTime = 0;
 
     private static final long SLEEP_DURATION_MS = 50;
 
@@ -59,7 +57,6 @@ public class ThrottledInputStream extends InputStream {
         if (getBytesPerSec() > BandwidthManager.getInstance().getAvgBandwidth()) {
             try {
                 Thread.sleep(SLEEP_DURATION_MS);
-                totalSleepTime += SLEEP_DURATION_MS;
             } catch (InterruptedException e) {
                 throw new IOException("Thread aborted", e);
             }
@@ -88,21 +85,12 @@ public class ThrottledInputStream extends InputStream {
         }
     }
 
-    /**
-     * Getter the total time spent in sleep.
-     * @return Number of milliseconds spent in sleep.
-     */
-    public long getTotalSleepTime() {
-        return totalSleepTime;
-    }
-
     @Override
     public String toString() {
         return "ThrottledInputStream{" +
                 "bytesRead=" + bytesRead +
                 ", maxBytesPerSec=" + BandwidthManager.getInstance().getAvgBandwidth() +
                 ", bytesPerSec=" + getBytesPerSec() +
-                ", totalSleepTime=" + totalSleepTime +
-                '}' + "clients: " + ClientManager.getInstance().getClients();
+                '}';
     }
 }
