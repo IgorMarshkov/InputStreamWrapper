@@ -18,6 +18,7 @@ public class RunnableTask implements Runnable {
     @Override
     public void run() {
         try {
+            LOGGER.info("new thread is started");
             while (is.read() != -1) {
                 LOGGER.info(is.toString());
             }
