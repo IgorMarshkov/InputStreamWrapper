@@ -7,4 +7,10 @@
             <class name="com.itechart.core.util.BandwidthUtilTest"/>
         </classes>
     </test>
+    <test name="Managers">
+        <classes>
+            <class name="com.itechart.core.ClientManagerTest"/>
+            <class name="com.itechart.core.BandwidthManagerTest"/>
+        </classes>
+    </test>
 </suite>

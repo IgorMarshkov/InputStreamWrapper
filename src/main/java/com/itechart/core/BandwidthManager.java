@@ -16,8 +16,8 @@ public class BandwidthManager {
 
     private BandwidthManager() {
         String bandwidthPeriods = AppConfig.getInstance().getBandwidthPeriods();
-        this.bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
-        this.activeBandwidth = bandwidths.get(0);
+        bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
+        activeBandwidth = bandwidths.get(0);
         recalculateAvgBandwidth(1);
 
         new BandwidthThread(bandwidths).start();
@@ -28,16 +28,20 @@ public class BandwidthManager {
     }
 
     public void setActiveBandwidth(Bandwidth bandwidth) {
-        this.activeBandwidth = bandwidth;
+        activeBandwidth = bandwidth;
         recalculateAvgBandwidth(ClientManager.getInstance().getClients());
     }
 
     public void recalculateAvgBandwidth(int countClients) {
         if (countClients == 0) {
-            this.avgBandwidth = activeBandwidth.getBandwidth();
+            avgBandwidth = activeBandwidth.getBandwidth();
         } else {
-            this.avgBandwidth = activeBandwidth.getBandwidth() / countClients;
+            avgBandwidth = activeBandwidth.getBandwidth() / countClients;
         }
+    }
+
+    public Bandwidth getActiveBandwidth() {
+        return activeBandwidth;
     }
 
     public double getAvgBandwidth() {
