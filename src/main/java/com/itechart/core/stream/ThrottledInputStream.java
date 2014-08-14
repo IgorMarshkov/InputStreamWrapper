@@ -35,6 +35,26 @@ public class ThrottledInputStream extends InputStream {
         return data;
     }
 
+    @Override
+    public int read(byte[] b) throws IOException {
+        throttle();
+        int readLen = inputStream.read(b);
+        if (readLen != -1) {
+            bytesRead += readLen;
+        }
+        return readLen;
+    }
+
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        throttle();
+        int readLen = inputStream.read(b, off, len);
+        if (readLen != -1) {
+            bytesRead += readLen;
+        }
+        return readLen;
+    }
+
     private void throttle() throws IOException {
         if (getBytesPerSec() > BandwidthManager.getInstance().getAvgBandwidth()) {
             try {
