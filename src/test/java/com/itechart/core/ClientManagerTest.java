@@ -1,9 +1,18 @@
 package com.itechart.core;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class ClientManagerTest extends Assert {
+
+    @AfterClass
+    public void clear() {
+        ClientManager clientManager = ClientManager.getInstance();
+        while (clientManager.getClients() > 0) {
+            clientManager.remove();
+        }
+    }
 
     @Test
     public void testClientManager() {
