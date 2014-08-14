@@ -30,8 +30,11 @@ public class BandwidthUtil {
             bandwidth.setToTime(toTime.toLocalTime());
 
             String bandwidthStr = periodStr.substring(bandwidthSepInd + 1);
-            int bandwidthVal = StringUtils.isEmpty(bandwidthStr) ? Integer.MAX_VALUE : Integer.parseInt(bandwidthStr);
-            bandwidth.setBandwidth(bandwidthVal * 1000); // convert kb to bytes
+            if (StringUtils.isEmpty(bandwidthStr)) {
+                bandwidth.setBandwidth(Double.MAX_VALUE);
+            } else {
+                bandwidth.setBandwidth(Double.parseDouble(bandwidthStr) * 1000); // convert kb to bytes
+            }
 
             list.add(bandwidth);
         }
