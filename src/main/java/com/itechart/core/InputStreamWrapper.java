@@ -8,14 +8,13 @@ import java.io.InputStream;
 public class InputStreamWrapper {
     private InputStream inputStream;
 
-    public InputStreamWrapper(String url) {
-        this.inputStream = getClass().getResourceAsStream(url);
+    public InputStreamWrapper(InputStream inputStream) {
+        this.inputStream = new ThrottledInputStream(inputStream);
     }
 
     public void load() {
         if (inputStream != null) {
-            new Thread(new RunnableTask(new ThrottledInputStream(inputStream))).start();
-            ClientManager.getInstance().add();
+            new Thread(new RunnableTask(inputStream)).start();
         }
     }
 }
