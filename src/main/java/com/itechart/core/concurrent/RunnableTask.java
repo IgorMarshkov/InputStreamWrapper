@@ -1,18 +1,18 @@
 package com.itechart.core.concurrent;
 
 import com.itechart.core.ClientManager;
-import com.itechart.core.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class RunnableTask implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(RunnableTask.class);
 
-    private ThrottledInputStream is;
+    private InputStream is;
 
-    public RunnableTask(ThrottledInputStream is) {
+    public RunnableTask(InputStream is) {
         this.is = is;
     }
 
