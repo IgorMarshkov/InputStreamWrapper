@@ -15,7 +15,6 @@ public class InputStreamWrapper {
     public void load() {
         if (inputStream != null) {
             new Thread(new RunnableTask(new ThrottledInputStream(inputStream))).start();
-            ClientManager.getInstance().add();
         }
     }
 }

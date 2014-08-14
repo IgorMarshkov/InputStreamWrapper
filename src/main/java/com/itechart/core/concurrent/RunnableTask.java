@@ -1,5 +1,6 @@
 package com.itechart.core.concurrent;
 
+import com.itechart.core.ClientManager;
 import com.itechart.core.stream.ThrottledInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ public class RunnableTask implements Runnable {
 
     @Override
     public void run() {
+        ClientManager.getInstance().add();
         try {
             LOGGER.info("new thread is started");
             while (is.read() != -1) {
@@ -25,6 +27,18 @@ public class RunnableTask implements Runnable {
 
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
+        } finally {
+            ClientManager.getInstance().remove();
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        try {
+            is.close();
+        } catch (IOException ex) {
+            LOGGER.error(ex.getMessage());
         }
     }
 }

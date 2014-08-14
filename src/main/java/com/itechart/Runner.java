@@ -14,6 +14,6 @@ public class Runner {
         InputStreamWrapper stream2 = new InputStreamWrapper("/test.txt");
 
         stream1.load();
-        //stream2.load();
+        stream2.load();
     }
 }
