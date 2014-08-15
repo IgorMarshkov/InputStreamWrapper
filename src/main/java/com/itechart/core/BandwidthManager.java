@@ -39,7 +39,7 @@ public class BandwidthManager {
      *
      * @param bandwidthPeriods is bandwidth as string.
      */
-    public void init(String bandwidthPeriods) {
+    public synchronized void init(String bandwidthPeriods) {
         bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
         activeBandwidth = bandwidths.get(0);
         recalculateAvgBandwidth(1);
@@ -50,7 +50,7 @@ public class BandwidthManager {
      *
      * @param countClients is count client streams.
      */
-    public void recalculateAvgBandwidth(int countClients) {
+    public synchronized void recalculateAvgBandwidth(int countClients) {
         if (countClients == 0) {
             avgBandwidth = activeBandwidth.getBandwidth();
         } else {
@@ -58,7 +58,7 @@ public class BandwidthManager {
         }
     }
 
-    public Bandwidth getActiveBandwidth() {
+    public synchronized Bandwidth getActiveBandwidth() {
         return activeBandwidth;
     }
 
@@ -67,7 +67,7 @@ public class BandwidthManager {
      *
      * @return average bandwidth by one client stream.
      */
-    public double getAvgBandwidth() {
+    public synchronized double getAvgBandwidth() {
         LocalTime currentTime = new LocalTime();
         if (currentTime.isAfter(activeBandwidth.getToTime())) {
             setActiveBandwidth(currentTime);

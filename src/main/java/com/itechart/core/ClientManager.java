@@ -19,14 +19,14 @@ public class ClientManager {
     /**
      * Add new client stream.
      */
-    public void add() {
+    public synchronized void add() {
         BandwidthManager.getInstance().recalculateAvgBandwidth(++clients);
     }
 
     /**
      * Remove client stream.
      */
-    public void remove() {
+    public synchronized void remove() {
         if (clients > 0) {
             BandwidthManager.getInstance().recalculateAvgBandwidth(--clients);
         }
