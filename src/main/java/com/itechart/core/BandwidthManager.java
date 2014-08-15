@@ -15,14 +15,17 @@ public class BandwidthManager {
     private double avgBandwidth;
 
     private BandwidthManager() {
-        String bandwidthPeriods = AppConfig.getInstance().getBandwidthPeriods();
-        bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
-        activeBandwidth = bandwidths.get(0);
-        recalculateAvgBandwidth(1);
+        init(AppConfig.getInstance().getBandwidthPeriods());
     }
 
     public static BandwidthManager getInstance() {
         return instance;
+    }
+
+    public void init(String bandwidthPeriods) {
+        bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
+        activeBandwidth = bandwidths.get(0);
+        recalculateAvgBandwidth(1);
     }
 
     public void recalculateAvgBandwidth(int countClients) {

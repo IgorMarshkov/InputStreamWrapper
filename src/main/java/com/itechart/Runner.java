@@ -14,7 +14,7 @@ public class Runner {
         OutputStream os = null;
 
         try {
-            is = new InputStreamWrapper(new Runner().getClass().getResourceAsStream("/test.txt"));
+            is = new InputStreamWrapper(new Runner().getClass().getResourceAsStream("/test.txt"), "12:00am-02:23pm=100|02:23pm-11:00pm=100|11:00pm-12:00am=");
             os = new FileOutputStream("/new_source.txt");
 
             byte[] buffer = new byte[1024];

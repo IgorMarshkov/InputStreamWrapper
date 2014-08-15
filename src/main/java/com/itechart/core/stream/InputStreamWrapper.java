@@ -11,6 +11,12 @@ public class InputStreamWrapper extends BandwidthInputStream {
         super(inputStream);
     }
 
+    public InputStreamWrapper(InputStream inputStream, String bandwidthPeriods) {
+        super(inputStream);
+        BandwidthManager bandwidthManager = BandwidthManager.getInstance();
+        bandwidthManager.init(bandwidthPeriods);
+    }
+
     @Override
     protected double getAvgBandwidth() {
         return BandwidthManager.getInstance().getAvgBandwidth();
