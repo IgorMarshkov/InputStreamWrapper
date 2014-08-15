@@ -1,0 +1,28 @@
+InputStreamWrapper introduction
+-------------------------------
+This release includes InputStreamWrapper API implementation, some examples
+and documentation for InputStreamWrapper API. API contains java.io.InputStream
+wrapper (com.itechart.core.stream.InputStreamWrapper) that is able to throttle
+the bandwidth that an input stream uses based on specific times.
+
+Requirements
+------------
+Note that the InputStreamWrapper API requires JDK 1.7 or higher to be installed.
+Download the required version of the JDK from http://www.oracle.com and install
+it in a suitable location.
+
+Packaging
+---------
+To compile sources make sure that Apache Maven is installed. If not
+download Apache Maven from http://maven.apache.org/ and install it according to
+official instruction.
+To compile the sources, run testes and package compiled files use Maven instruction:
+mvn clean package
+
+Demonstration
+-------------
+This example will run the demonstration of how 4 different input streams share the
+limited channel.
+mvn clean compile exec:java -Dexec.mainClass="com.itechart.Runner"
+
+Enjoy!
