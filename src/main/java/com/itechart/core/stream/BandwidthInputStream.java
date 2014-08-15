@@ -3,16 +3,32 @@ package com.itechart.core.stream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Abstract class provides functionality to control InputStream depend based on client streams and bandwidth.
+ */
 public abstract class BandwidthInputStream extends InputStream {
+    private static final long SLEEP_DURATION_MS = 50;
+
     private final InputStream inputStream;
     private final long startTime = System.currentTimeMillis();
 
     private long bytesRead = 0;
 
-    private static final long SLEEP_DURATION_MS = 50;
-
+    /**
+     * Get current average bandwidth by one client stream.
+     *
+     * @return average bandwidth by one client stream.
+     */
     protected abstract double getAvgBandwidth();
+
+    /**
+     * Add new client stream.
+     */
     protected abstract void addClient();
+
+    /**
+     * Remove client stream.
+     */
     protected abstract void removeClient();
 
     protected BandwidthInputStream(InputStream inputStream) {
@@ -75,17 +91,10 @@ public abstract class BandwidthInputStream extends InputStream {
     }
 
     /**
-     * Getter for the number of bytes read from this stream, since creation.
-     * @return The number of bytes.
-     */
-    public long getTotalBytesRead() {
-        return bytesRead;
-    }
-
-    /**
-     * Getter for the read-rate from this stream, since creation.
+     * Get read-rate from this stream, since creation.
      * Calculated as bytesRead/elapsedTimeSinceStart.
-     * @return Read rate, in bytes/sec.
+     *
+     * @return read rate, in bytes/sec.
      */
     public long getBytesPerSec() {
         long elapsed = (System.currentTimeMillis() - startTime) / 1000;
@@ -98,10 +107,10 @@ public abstract class BandwidthInputStream extends InputStream {
 
     @Override
     public String toString() {
-        return "ThrottledInputStream{" +
-                "bytesRead=" + bytesRead +
-                ", maxBytesPerSec=" + getAvgBandwidth() +
-                ", bytesPerSec=" + getBytesPerSec() +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("BandwidthInputStream-> ");
+        builder.append("bytesRead=").append(bytesRead);
+        builder.append(", bytesPerSec=").append(getBytesPerSec());
+        return builder.toString();
     }
 }
