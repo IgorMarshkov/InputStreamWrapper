@@ -9,9 +9,9 @@ import java.io.*;
 public class Runner {
     private class Task implements Runnable {
         private final Logger LOGGER = LoggerFactory.getLogger(Task.class);
-        private final InputStream inputStream;
+        private final InputStreamWrapper inputStream;
 
-        public Task(final InputStream inputStream) {
+        public Task(final InputStreamWrapper inputStream) {
             this.inputStream = inputStream;
         }
 
