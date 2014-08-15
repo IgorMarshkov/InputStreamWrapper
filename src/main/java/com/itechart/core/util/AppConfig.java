@@ -33,7 +33,9 @@ public class AppConfig {
             LOGGER.error("Can't load properties");
         } finally {
             try {
-                in.close();
+                if (in != null) {
+                    in.close();
+                }
             } catch (IOException e) {
                 LOGGER.error("Can't load properties");
             }
