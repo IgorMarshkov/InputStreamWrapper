@@ -28,9 +28,9 @@ public class BandwidthManager {
     /**
      * Init bandwidth by time.
      * By default use values from file config.properties
-     *
+     * <p/>
      * Please use following format of bandwidth string,
-     *      12:00am-02:23pm=100|02:23pm-11:00pm=100|11:00pm-12:00am=
+     * 12:00am-02:23pm=100|02:23pm-11:00pm=100|11:00pm-12:00am=
      * - time format - i.e. 08:30am;
      * - begin time (12:00am) equals end time (12:00am);
      * - bandwidth you can set after symbol '=' and bandwidth uses kb/s;

@@ -3,7 +3,7 @@ package com.itechart.core;
 /**
  * Class contains functionality of managing client streams.
  */
-public class ClientManager{
+public class ClientManager {
     private static ClientManager instance = new ClientManager();
 
     private int clients;

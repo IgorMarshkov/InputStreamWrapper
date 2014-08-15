@@ -29,8 +29,7 @@ public class AppConfig {
         try {
             in = getClass().getResourceAsStream("/config.properties");
             props.load(in);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOGGER.error("Can't load properties");
         } finally {
             try {

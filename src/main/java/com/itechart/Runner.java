@@ -1,6 +1,5 @@
 package com.itechart;
 
-import com.itechart.core.ClientManager;
 import com.itechart.core.stream.InputStreamWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ public class Runner {
     private class Task implements Runnable {
         private final Logger LOGGER = LoggerFactory.getLogger(Task.class);
         private final InputStream inputStream;
+
         public Task(final InputStream inputStream) {
             this.inputStream = inputStream;
             new Thread(new Runnable() {
