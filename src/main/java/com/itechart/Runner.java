@@ -22,7 +22,7 @@ public class Runner {
                     LOGGER.info(inputStream.toString());
                 }
             } catch (IOException e) {
-                LOGGER.debug(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             } finally {
                 if (inputStream != null) {
                     try {
