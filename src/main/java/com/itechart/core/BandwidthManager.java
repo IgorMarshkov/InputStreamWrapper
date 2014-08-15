@@ -1,9 +1,9 @@
 package com.itechart.core;
 
-import com.itechart.core.concurrent.BandwidthThread;
 import com.itechart.core.model.Bandwidth;
 import com.itechart.core.util.AppConfig;
 import com.itechart.core.util.BandwidthUtil;
+import org.joda.time.LocalTime;
 
 import java.util.List;
 
@@ -19,17 +19,10 @@ public class BandwidthManager {
         bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
         activeBandwidth = bandwidths.get(0);
         recalculateAvgBandwidth(1);
-
-        new BandwidthThread(bandwidths).start();
     }
 
     public static BandwidthManager getInstance() {
         return instance;
-    }
-
-    public void setActiveBandwidth(Bandwidth bandwidth) {
-        activeBandwidth = bandwidth;
-        recalculateAvgBandwidth(ClientManager.getInstance().getClients());
     }
 
     public void recalculateAvgBandwidth(int countClients) {
@@ -45,6 +38,28 @@ public class BandwidthManager {
     }
 
     public double getAvgBandwidth() {
+        LocalTime currentTime = new LocalTime();
+        if (currentTime.isAfter(activeBandwidth.getToTime())) {
+            setActiveBandwidth(currentTime);
+        }
+
         return avgBandwidth;
+    }
+
+    private void setActiveBandwidth(LocalTime currentTime) {
+        for (int i = 0; i < bandwidths.size(); i++) {
+            Bandwidth bandwidth = bandwidths.get(i);
+            long to = bandwidth.getToTime().toDateTimeToday().getMillis();
+            if (i == (bandwidths.size() - 1)) {
+                to -= 1;
+            }
+
+            if (currentTime.isEqual(bandwidth.getFromTime()) ||
+                    (currentTime.isAfter(bandwidth.getFromTime()) && currentTime.isBefore(new LocalTime(to)))) {
+                bandwidth.setToTime(new LocalTime(to));
+                activeBandwidth = bandwidth;
+                recalculateAvgBandwidth(ClientManager.getInstance().getClients());
+            }
+        }
     }
 }

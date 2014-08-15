@@ -46,7 +46,7 @@ public class BandwidthThread extends Thread {
     }
 
     private void setupUpdatedBandwidth(Bandwidth item) throws InterruptedException {
-        BandwidthManager.getInstance().setActiveBandwidth(item);
+       // BandwidthManager.getInstance().setActiveBandwidth(item);
         long period = item.getToTime().toDateTimeToday().getMillis() - new LocalTime().toDateTimeToday().getMillis();
         BandwidthThread.sleep(period);
     }
