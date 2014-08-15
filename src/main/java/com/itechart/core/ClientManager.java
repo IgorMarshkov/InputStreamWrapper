@@ -8,6 +8,10 @@ public class ClientManager {
 
     private int clients;
 
+    private ClientManager() {
+
+    }
+
     public static ClientManager getInstance() {
         return instance;
     }
