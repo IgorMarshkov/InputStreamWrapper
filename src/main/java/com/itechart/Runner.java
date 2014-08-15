@@ -13,25 +13,13 @@ public class Runner {
 
         public Task(final InputStream inputStream) {
             this.inputStream = inputStream;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        LOGGER.info(inputStream.toString());
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            LOGGER.error(e.getMessage(), e);
-                        }
-                    }
-                }
-            }).start();
         }
 
         @Override
         public void run() {
             try {
                 while ((inputStream.read()) != -1) {
+                    LOGGER.info(inputStream.toString());
                 }
             } catch (IOException e) {
                 LOGGER.debug(e.getMessage(), e);
