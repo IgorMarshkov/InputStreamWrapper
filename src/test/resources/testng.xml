@@ -13,4 +13,9 @@
             <class name="com.itechart.core.BandwidthManagerTest"/>
         </classes>
     </test>
+    <test name="InputStreamWrapper">
+        <classes>
+            <class name="com.itechart.core.stream.InputStreamWrapperTest"/>
+        </classes>
+    </test>
 </suite>
