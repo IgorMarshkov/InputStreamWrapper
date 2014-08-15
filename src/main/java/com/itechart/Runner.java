@@ -35,7 +35,9 @@ public class Runner {
 
         @Override
         public void run() {
+
             try {
+
                 byte[] buffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = inputStream.read(buffer)) != -1) {

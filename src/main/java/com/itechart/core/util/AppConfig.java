@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class provides utils for work with file config.properties.
+ */
 public class AppConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
 
     private static final String BANDWIDTH_PERIODS = "bandwidth.periods";
-    private static final String CLIENT_MAX_COUNT = "client.max.count";
-    private static final String CLIENT_GENERATOR_DELAY = "client.generator.delay";
 
     private static AppConfig instance = new AppConfig();
 
@@ -42,15 +43,5 @@ public class AppConfig {
 
     public String getBandwidthPeriods() {
         return props.getProperty(BANDWIDTH_PERIODS, "");
-    }
-
-    public int getClientMaxCount() {
-        String value = props.getProperty(CLIENT_MAX_COUNT, "1");
-        return Integer.parseInt(value);
-    }
-
-    public int getClientGeneratorDelay() {
-        String value = props.getProperty(CLIENT_GENERATOR_DELAY, "30");
-        return Integer.parseInt(value);
     }
 }

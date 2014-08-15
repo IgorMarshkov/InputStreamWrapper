@@ -1,11 +1,18 @@
 package com.itechart.core;
 
-import com.itechart.core.model.Bandwidth;
-import org.joda.time.LocalTime;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class BandwidthManagerTest extends Assert {
+
+    @AfterClass
+    public void clear() {
+        ClientManager clientManager = ClientManager.getInstance();
+        while (clientManager.getClients() > 0) {
+            clientManager.remove();
+        }
+    }
 
     @Test
     public void testBandwidthManager() {
@@ -13,15 +20,16 @@ public class BandwidthManagerTest extends Assert {
         assertNotEquals(bandwidthManager.getActiveBandwidth(), null);
         assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth());
 
-        Bandwidth bandwidth = new Bandwidth();
-        bandwidth.setFromTime(new LocalTime(1, 0, 0));
-        bandwidth.setToTime(new LocalTime(10, 0, 0));
-        bandwidth.setBandwidth(64000);
-        /*bandwidthManager.setActiveBandwidth(bandwidth);
-        assertEquals(bandwidthManager.getActiveBandwidth() , bandwidth);
-        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidth.getBandwidth() / 1); */
+        ClientManager clientManager = ClientManager.getInstance();
+        clientManager.add();
+        clientManager.add();
+        clientManager.add();
+        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth() / 3);
 
-        //bandwidthManager.recalculateAvgBandwidth(3);
-        //assertEquals(bandwidthManager.getAvgBandwidth(), bandwidth.getBandwidth() / 3);
+        bandwidthManager.recalculateAvgBandwidth(3);
+        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth() / 3);
+
+        bandwidthManager.recalculateAvgBandwidth(0);
+        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth());
     }
 }

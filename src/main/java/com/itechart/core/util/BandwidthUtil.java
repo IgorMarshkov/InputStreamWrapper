@@ -8,8 +8,17 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.*;
 
+/**
+ * Class provides utils for work with bandwidth.
+ */
 public class BandwidthUtil {
 
+    /**
+     * Convert bandwidth string to list of bandwidth periods.
+     *
+     * @param str is bandwidth string - for example '12:00am-02:23pm=100|02:23pm-11:00pm=100|11:00pm-12:00am='
+     * @return list of bandwidth periods.
+     */
     public static List<Bandwidth> parsePeriod(String str) {
         List<Bandwidth> list = new ArrayList<>();
 
