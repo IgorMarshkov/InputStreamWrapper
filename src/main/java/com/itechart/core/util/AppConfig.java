@@ -25,20 +25,10 @@ public class AppConfig {
 
     private AppConfig() {
         props = new Properties();
-        InputStream in = null;
-        try {
-            in = getClass().getResourceAsStream("/config.properties");
+        try (InputStream in = getClass().getResourceAsStream("/config.properties")) {
             props.load(in);
         } catch (Exception e) {
             LOGGER.error("Can't load properties");
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                LOGGER.error("Can't load properties");
-            }
         }
     }
 
