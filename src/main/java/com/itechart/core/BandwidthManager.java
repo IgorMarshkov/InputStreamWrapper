@@ -77,8 +77,10 @@ public class BandwidthManager {
     }
 
     /**
+     * Load active bandwidth period.
+     * Method uses when we change bandwidth period.
      *
-     * @param currentTime
+     * @param currentTime is current time.
      */
     private void setActiveBandwidth(LocalTime currentTime) {
         for (int i = 0; i < bandwidths.size(); i++) {
