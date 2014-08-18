@@ -3,7 +3,6 @@ package com.itechart.core.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -28,11 +27,17 @@ public class AppConfig {
         try (InputStream in = getClass().getResourceAsStream("/config.properties")) {
             props.load(in);
         } catch (Exception e) {
-            LOGGER.error("Can't load properties");
+            LOGGER.error("Can't load properties", e);
         }
     }
 
+    /**
+     * Get bandwidth periods.
+     * By default we use unlimited bandwidth for all day.
+     *
+     * @return bandwidth periods as string.
+     */
     public String getBandwidthPeriods() {
-        return props.getProperty(BANDWIDTH_PERIODS, "");
+        return props.getProperty(BANDWIDTH_PERIODS, "12:00am-12:00am=");
     }
 }

@@ -10,8 +10,8 @@ public class BandwidthUtilTest extends Assert {
 
     @Test
     public void testParsePeriod() {
-        List<Bandwidth> bandwidths = BandwidthUtil.parsePeriod("");
-        assertEquals(bandwidths.size(), 0);
+        List<Bandwidth> bandwidths = BandwidthUtil.parsePeriod("12:00am-12:00am=");
+        assertEquals(bandwidths.size(), 1);
 
         bandwidths = BandwidthUtil.parsePeriod("12:00am-02:23pm=64|02:23pm-11:00pm=100|11:00pm-12:00am=");
         assertEquals(bandwidths.size(), 3);
@@ -26,9 +26,9 @@ public class BandwidthUtilTest extends Assert {
         assertEquals(bandwidths.get(0).getToTime(), new LocalTime(14, 23, 0));
 
         assertEquals(bandwidths.get(1).getFromTime(), new LocalTime(14, 23, 0));
-        assertEquals(bandwidths.get(1).getToTime(), new LocalTime(23, 00, 0));
+        assertEquals(bandwidths.get(1).getToTime(), new LocalTime(23, 0, 0));
 
-        assertEquals(bandwidths.get(2).getFromTime(), new LocalTime(23, 00, 0));
+        assertEquals(bandwidths.get(2).getFromTime(), new LocalTime(23, 0, 0));
         assertEquals(bandwidths.get(2).getToTime(), new LocalTime(0, 0, 0));
     }
 }

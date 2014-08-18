@@ -58,7 +58,7 @@ public class BandwidthManager {
         }
     }
 
-    public synchronized Bandwidth getActiveBandwidth() {
+    public Bandwidth getActiveBandwidth() {
         return activeBandwidth;
     }
 
@@ -76,6 +76,10 @@ public class BandwidthManager {
         return avgBandwidth;
     }
 
+    /**
+     *
+     * @param currentTime
+     */
     private void setActiveBandwidth(LocalTime currentTime) {
         for (int i = 0; i < bandwidths.size(); i++) {
             Bandwidth bandwidth = bandwidths.get(i);

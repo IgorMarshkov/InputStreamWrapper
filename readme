@@ -1,8 +1,8 @@
 InputStreamWrapper introduction
 -------------------------------
-This release includes InputStreamWrapper API implementation, some examples
-and documentation for InputStreamWrapper API. API contains java.io.InputStream
-wrapper (com.itechart.core.stream.InputStreamWrapper) that is able to throttle
+This release includes InputStreamWrapper API implementation, documentation
+for InputStreamWrapper API. API contains java.io.InputStream wrapper
+(com.itechart.core.stream.InputStreamWrapper) that is able to throttle
 the bandwidth that an input stream uses based on specific times.
 
 Requirements
