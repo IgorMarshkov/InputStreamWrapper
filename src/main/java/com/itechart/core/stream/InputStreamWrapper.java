@@ -47,7 +47,8 @@ public class InputStreamWrapper extends BandwidthInputStream {
      * @param bandwidthPeriods is periods of bandwidth.
      */
     public void initBandwidthPeriods(String bandwidthPeriods) {
-        BandwidthManager.getInstance().init(bandwidthPeriods);
+        BandwidthManager bandwidthManager = BandwidthManager.getInstance();
+        bandwidthManager.init(bandwidthPeriods);
     }
 
     @Override
