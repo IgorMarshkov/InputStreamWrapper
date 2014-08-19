@@ -41,7 +41,7 @@ public class BandwidthManager {
      */
     public synchronized void init(String bandwidthPeriods) {
         bandwidths = BandwidthUtil.parsePeriod(bandwidthPeriods);
-        activeBandwidth = bandwidths.get(0);
+        setActiveBandwidth(new LocalTime());
         recalculateAvgBandwidth(1);
     }
 
@@ -69,7 +69,7 @@ public class BandwidthManager {
      */
     public synchronized double getAvgBandwidth() {
         LocalTime currentTime = new LocalTime();
-        if (currentTime.isAfter(activeBandwidth.getToTime())) {
+        if (isValidPeriod(activeBandwidth, currentTime)) {
             setActiveBandwidth(currentTime);
         }
 
@@ -85,17 +85,19 @@ public class BandwidthManager {
     private void setActiveBandwidth(LocalTime currentTime) {
         for (int i = 0; i < bandwidths.size(); i++) {
             Bandwidth bandwidth = bandwidths.get(i);
-            long to = bandwidth.getToTime().toDateTimeToday().getMillis();
-            if (i == (bandwidths.size() - 1)) {
-                to -= 1;
-            }
-
-            if (currentTime.isEqual(bandwidth.getFromTime()) ||
-                    (currentTime.isAfter(bandwidth.getFromTime()) && currentTime.isBefore(new LocalTime(to)))) {
-                bandwidth.setToTime(new LocalTime(to));
+            if (isValidPeriod(bandwidth, currentTime)) {
                 activeBandwidth = bandwidth;
                 recalculateAvgBandwidth(ClientManager.getInstance().getClients());
             }
         }
+    }
+
+    private boolean isValidPeriod(Bandwidth bandwidth, LocalTime currentTime) {
+        long to = bandwidth.getToTime().toDateTimeToday().getMillis() - 1;
+        if (currentTime.isEqual(bandwidth.getFromTime()) ||
+                (currentTime.isAfter(bandwidth.getFromTime()) && currentTime.isBefore(new LocalTime(to)))) {
+            return true;
+        }
+        return false;
     }
 }

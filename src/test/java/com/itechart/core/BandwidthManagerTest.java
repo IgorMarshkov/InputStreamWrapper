@@ -20,6 +20,9 @@ public class BandwidthManagerTest extends Assert {
         assertNotEquals(bandwidthManager.getActiveBandwidth(), null);
         assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth());
 
+        bandwidthManager.recalculateAvgBandwidth(0);
+        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth());
+
         ClientManager clientManager = ClientManager.getInstance();
         clientManager.add();
         clientManager.add();
@@ -28,8 +31,5 @@ public class BandwidthManagerTest extends Assert {
 
         bandwidthManager.recalculateAvgBandwidth(3);
         assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth() / 3);
-
-        bandwidthManager.recalculateAvgBandwidth(0);
-        assertEquals(bandwidthManager.getAvgBandwidth(), bandwidthManager.getActiveBandwidth().getBandwidth());
     }
 }

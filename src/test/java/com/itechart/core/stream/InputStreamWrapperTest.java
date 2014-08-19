@@ -10,8 +10,10 @@ public class InputStreamWrapperTest extends Assert {
 
     @Test
     public void testInputStreamWrapper() throws IOException {
+        BandwidthManager bandwidthManager = BandwidthManager.getInstance();
+        bandwidthManager.init("12:00am-02:23pm=|02:23pm-11:00pm=|11:00pm-12:00am=");
+
         try (InputStreamWrapper isw = new InputStreamWrapper(this.getClass().getResourceAsStream("/test.txt"))) {
-            isw.initBandwidthPeriods("12:00am-02:23pm=|02:23pm-11:00pm=|11:00pm-12:00am=");
             double avgBandwidth = BandwidthManager.getInstance().getAvgBandwidth();
             while ((isw.read()) != -1) {
                 boolean isOk = (isw.getBytesPerSec() - avgBandwidth) < (avgBandwidth / 1000);
