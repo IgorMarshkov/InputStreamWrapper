@@ -30,5 +30,9 @@ public class BandwidthUtilTest extends Assert {
 
         assertEquals(bandwidths.get(2).getFromTime(), new LocalTime(23, 0, 0));
         assertEquals(bandwidths.get(2).getToTime(), new LocalTime(0, 0, 0));
+
+        BandwidthUtil.fixLastBorder(bandwidths);
+        assertEquals(bandwidths.get(2).getFromTime(), new LocalTime(23, 0, 0));
+        assertEquals(bandwidths.get(2).getToTime(), new LocalTime(0, 0, 0).minusMillis(1));
     }
 }

@@ -3,6 +3,7 @@ package com.itechart.core.util;
 import com.itechart.core.model.Bandwidth;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -37,8 +38,7 @@ public class BandwidthUtil {
 
             String toTimeStr = periodStr.substring(timeSepInd + 1, bandwidthSepInd);
             DateTime toTime = dateTimeFormatter.parseDateTime(toTimeStr);
-            long to = toTime.toLocalTime().toDateTimeToday().getMillis() - 1;
-            bandwidth.setToTime(new LocalTime(to));
+            bandwidth.setToTime(toTime.toLocalTime());
 
             String bandwidthStr = periodStr.substring(bandwidthSepInd + 1);
             if (StringUtils.isEmpty(bandwidthStr)) {
@@ -51,5 +51,16 @@ public class BandwidthUtil {
         }
 
         return list;
+    }
+
+    /**
+     * Remove last right border of time.
+     *
+     * @param bandwidths is list of bandwidth periods.
+     */
+    public static void fixLastBorder(List<Bandwidth> bandwidths) {
+        Bandwidth bandwidth = bandwidths.get(bandwidths.size() - 1);
+        LocalTime newToTime = bandwidth.getToTime().minusMillis(1);
+        bandwidth.setToTime(newToTime);
     }
 }
