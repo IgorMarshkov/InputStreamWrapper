@@ -3,6 +3,7 @@ package com.itechart.core.util;
 import com.itechart.core.model.Bandwidth;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -36,7 +37,8 @@ public class BandwidthUtil {
 
             String toTimeStr = periodStr.substring(timeSepInd + 1, bandwidthSepInd);
             DateTime toTime = dateTimeFormatter.parseDateTime(toTimeStr);
-            bandwidth.setToTime(toTime.toLocalTime());
+            long to = toTime.toLocalTime().toDateTimeToday().getMillis() - 1;
+            bandwidth.setToTime(new LocalTime(to));
 
             String bandwidthStr = periodStr.substring(bandwidthSepInd + 1);
             if (StringUtils.isEmpty(bandwidthStr)) {

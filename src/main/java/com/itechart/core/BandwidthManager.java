@@ -91,9 +91,8 @@ public class BandwidthManager {
 
     private boolean isValidPeriod(Bandwidth bandwidth) {
         LocalTime currentTime = new LocalTime();
-        long to = bandwidth.getToTime().toDateTimeToday().getMillis() - 1;
-        if (currentTime.isEqual(bandwidth.getFromTime()) ||
-                (currentTime.isAfter(bandwidth.getFromTime()) && currentTime.isBefore(new LocalTime(to)))) {
+        if (currentTime.isEqual(bandwidth.getFromTime()) || currentTime.isEqual(bandwidth.getToTime()) ||
+                (currentTime.isAfter(bandwidth.getFromTime()) && currentTime.isBefore(bandwidth.getToTime()))) {
             return true;
         }
         return false;
